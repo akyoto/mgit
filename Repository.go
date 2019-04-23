@@ -5,4 +5,5 @@ type Repository struct {
 	Path             string
 	LastCommitHash   string
 	LastCommitTagged bool
+	LastTag          string
 }
