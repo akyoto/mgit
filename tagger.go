@@ -13,7 +13,6 @@ import (
 )
 
 var (
-	faintColor          = color.New(color.Faint)
 	maxRepositoryLength = 0
 	maxTagLength        = 0
 	repositoryWaitGroup sync.WaitGroup
@@ -21,7 +20,12 @@ var (
 )
 
 func main() {
-	filepath.Walk(".", walk)
+	err := filepath.Walk(".", walk)
+
+	if err != nil {
+		panic(err)
+	}
+
 	repositoryWaitGroup.Wait()
 
 	for _, repository := range repositories {
