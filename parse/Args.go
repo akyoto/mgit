@@ -1,6 +1,9 @@
 package parse
 
-import "github.com/akyoto/ignore"
+import (
+	"github.com/akyoto/ignore"
+	"strings"
+)
 
 // Args parses arguments and makes sure that string arguments
 // are correctly counted as a single argument.
@@ -22,20 +25,25 @@ func Args(command string) []string {
 	reader := ignore.Reader{}
 	argStart := 0
 
+	if !strings.HasSuffix(command, " ") {
+		command += " "
+	}
+
 	for index, char := range command {
 		if reader.CanIgnore(char) {
 			continue
 		}
 
 		if char == ' ' {
-			args = append(args, command[argStart:index])
+			offset := 0
+
+			if (command[argStart] == '"' && command[index-1] == '"') || (command[argStart] == '\'' && command[index-1] == '\'') {
+				offset++
+			}
+
+			args = append(args, command[argStart+offset:index-offset])
 			argStart = index + 1
 		}
-	}
-
-	// Last argument
-	if argStart != len(command)-1 {
-		args = append(args, command[argStart:])
 	}
 
 	return args
