@@ -14,6 +14,7 @@ func incrementTag(tag string, plus string) (string, error) {
 	tag = strings.TrimPrefix(tag, "v")
 	parts := strings.Split(tag, ".")
 	plusParts := strings.Split(plus, ".")
+	zeroEverything := false
 
 	if len(parts) < 3 {
 		return "", fmt.Errorf("Not a valid SemVer tag: %s", tag)
@@ -22,6 +23,11 @@ func incrementTag(tag string, plus string) (string, error) {
 	for index, part := range parts {
 		if index >= len(plusParts) {
 			break
+		}
+
+		if zeroEverything {
+			parts[index] = "0"
+			continue
 		}
 
 		num, err := strconv.Atoi(part)
@@ -37,6 +43,13 @@ func incrementTag(tag string, plus string) (string, error) {
 		}
 
 		num += plusNum
+
+		if plusNum > 0 {
+			// When we increase a major version number,
+			// we want the rest to be all zeros.
+			zeroEverything = true
+		}
+
 		parts[index] = strconv.Itoa(num)
 	}
 
