@@ -7,7 +7,7 @@ Tagger lets you see untagged git commits recursively.
 ## Installation
 
 ```shell
-go install github.com/akyoto/tagger
+go get -u github.com/akyoto/tagger
 ```
 
 ## Usage
