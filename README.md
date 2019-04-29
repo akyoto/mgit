@@ -36,6 +36,8 @@ tagger -run "go mod tidy"
 
 The `-run` flag lets you specify a command to run in every git repository.
 
+The command will be executed in parallel (one async routine per repository).
+
 ## FAQ
 
 ### Why is this needed?
