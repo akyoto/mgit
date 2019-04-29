@@ -12,7 +12,13 @@ var (
 func showTags() {
 	for _, repository := range repositories {
 		pathPadded := rightPad(repository.Path, " ", maxRepositoryLength)
-		tagPadded := rightPad(repository.LastTag, " ", maxTagLength)
+		tag := repository.LastTag
+
+		if repository.NewTag != "" {
+			tag += " -> " + repository.NewTag
+		}
+
+		tagPadded := rightPad(tag, " ", maxTagLength)
 
 		if repository.LastCommitTagged {
 			color.Green("%s | %s", pathPadded, tagPadded)

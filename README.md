@@ -10,6 +10,20 @@ go get -u github.com/akyoto/mgit
 
 ## Usage
 
+### Increment all semver tags
+
+![Increment semver minor version in all tags](docs/multi-tag-semver.png)
+
+```shell
+mgit -tag +0.0.1
+```
+
+```shell
+mgit -tag +0.0.1 -dry
+```
+
+Adds the given version increment to each tag. Specify `-dry` to stop the actual tagging and only display the diff to confirm the changes. This will never increment repositories where the last commit is already tagged / up to date.
+
 ### View tags
 
 ![View git tags](docs/view-tags.png)

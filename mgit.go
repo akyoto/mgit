@@ -4,16 +4,21 @@ import (
 	"flag"
 	"fmt"
 	"path/filepath"
+	"strings"
 )
 
 var (
 	tags         bool
+	dry          bool
+	tag          string
 	root         string
 	shellCommand string
 )
 
 func init() {
 	flag.BoolVar(&tags, "tags", false, "Shows the latest tag in every git repository")
+	flag.BoolVar(&dry, "dry", false, "Disables the actual tagging and only shows the tag diffs (only applicable with -tag option)")
+	flag.StringVar(&tag, "tag", "", "Specifies the tag increment for every outdated git repository (syntax: +0.0.1 to increase the SemVer minor)")
 	flag.StringVar(&root, "root", ".", "Specifies the directory to search for git repositories")
 	flag.StringVar(&shellCommand, "run", "", "Specifies a shell command to execute in every git repository")
 	flag.Parse()
@@ -21,8 +26,23 @@ func init() {
 
 func main() {
 	// Show help
-	if !tags && shellCommand == "" {
+	if !tags && tag == "" && shellCommand == "" {
 		flag.Usage()
+		return
+	}
+
+	// Tag activates "show tags"
+	if tag != "" {
+		tags = true
+
+		if !strings.HasPrefix(tag, "+") {
+			fmt.Println("Syntax: mgit -tag +0.0.1")
+			return
+		}
+	}
+
+	if dry && tag == "" {
+		fmt.Println("Dry run is only possible when -tag option is specified")
 		return
 	}
 

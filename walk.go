@@ -63,9 +63,10 @@ func processRepository(repository *Repository) {
 	if tags {
 		repository.LastCommitHash = getCommitHash(repository.Path)
 		repository.LastTag = getLatestTag(repository.Path)
+		repository.VisualizedTag = repository.LastTag
 
-		if len(repository.LastTag) > maxTagLength {
-			maxTagLength = len(repository.LastTag)
+		if len(repository.VisualizedTag) > maxTagLength {
+			maxTagLength = len(repository.VisualizedTag)
 		}
 
 		if repository.LastCommitHash == "" {
@@ -74,6 +75,44 @@ func processRepository(repository *Repository) {
 
 		repository.LastCommitTagged = isLastCommitTagged(repository.Path, repository.LastCommitHash)
 	}
+
+	if tag != "" && repository.LastTag != "" && !repository.LastCommitTagged {
+		newTag, err := incrementTag(repository.LastTag, tag[1:])
+
+		if err != nil {
+			return
+		}
+
+		if setTag(repository, newTag) != nil {
+			return
+		}
+
+		repository.NewTag = newTag
+		repository.VisualizedTag = fmt.Sprintf("%s -> %s", repository.LastTag, repository.NewTag)
+
+		if len(repository.VisualizedTag) > maxTagLength {
+			maxTagLength = len(repository.VisualizedTag)
+		}
+	}
+}
+
+func setTag(repository *Repository, newTag string) error {
+	if dry {
+		return nil
+	}
+
+	cmd := exec.Command("git", "tag", newTag)
+	cmd.Dir = repository.Path
+	_, err := cmd.Output()
+
+	if err != nil {
+		return err
+	}
+
+	cmd = exec.Command("git", "push", "origin", newTag)
+	cmd.Dir = repository.Path
+	_, err = cmd.Output()
+	return err
 }
 
 func runCommandInDirectory(command string, repository *Repository) {
