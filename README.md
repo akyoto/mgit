@@ -1,4 +1,4 @@
-# mgit
+![mgit](docs/mgit.png)
 
 mgit (multi git) lets you manage multiple git repositories.
 
@@ -72,3 +72,9 @@ It means that the repository doesn't have any tags.
 ### What does "outdated" mean?
 
 It means that your last commit hasn't been tagged yet and users of your repository might still be on an outdated version.
+
+## Contact
+
+| [![Eduard Urbach on Twitter](https://gravatar.com/avatar/16ed4d41a5f244d1b10de1b791657989?s=70)](https://twitter.com/eduardurbach "Follow @eduardurbach on Twitter") |
+|---|
+| [Eduard Urbach](https://eduardurbach.com) |
