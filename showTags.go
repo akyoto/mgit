@@ -74,7 +74,10 @@ func walk(file string, info os.FileInfo, err error) error {
 }
 
 func processRepository(repository *Repository) {
-	runUserCommand(repository.Path)
+	if run != "" {
+		runUserCommand(repository.Path)
+	}
+
 	repository.LastCommitHash = getCommitHash(repository.Path)
 	repository.LastTag = getLatestTag(repository.Path)
 
