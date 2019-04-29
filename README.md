@@ -26,6 +26,14 @@ Lets you view outdated or untagged git repositories by recursively searching eve
 tagger -run "git pull"
 ```
 
+```shell
+tagger -run "go get -u"
+```
+
+```shell
+tagger -run "go mod tidy"
+```
+
 The `-run` flag lets you specify a command to run in every git repository.
 
 ## FAQ
