@@ -12,11 +12,15 @@ go get -u github.com/akyoto/tagger
 
 ## Usage
 
+### View tags
+
 ```shell
 tagger
 ```
 
 Lets you view outdated or untagged git repositories by recursively searching everything in the working directory.
+
+### Run a command in each repository
 
 ```shell
 tagger -run "git pull"
