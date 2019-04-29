@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"path/filepath"
 )
 
@@ -31,6 +32,10 @@ func main() {
 	}
 
 	repositoryWaitGroup.Wait()
+
+	if shellCommand != "" {
+		fmt.Print("\033[2K\r")
+	}
 
 	if tags {
 		showTags()

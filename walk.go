@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"fmt"
 	"os"
 	"os/exec"
 	"path"
@@ -75,7 +76,7 @@ func processRepository(repository *Repository) {
 }
 
 func runCommandInDirectory(command string, repository *Repository) {
-	// fmt.Printf("Running %s in %s\n", color.GreenString(command), color.GreenString(repository.Path))
+	fmt.Printf("\033[2K\rRunning %s in %s", color.GreenString(command), color.GreenString(repository.Path))
 
 	var cmd *exec.Cmd
 	args := strings.Split(command, " ")
