@@ -89,7 +89,7 @@ func runCommandInDirectory(command string, repository *Repository) {
 
 	cmd.Dir = repository.Path
 	output, err := cmd.CombinedOutput()
-	repository.Command.Output = string(output)
+	repository.Command.Output = strings.TrimSpace(string(output))
 	repository.Command.Error = err
 }
 

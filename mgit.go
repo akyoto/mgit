@@ -35,6 +35,7 @@ func main() {
 
 	if shellCommand != "" {
 		fmt.Print("\033[2K\r")
+		showCommandOutput()
 	}
 
 	if tags {
