@@ -1,4 +1,4 @@
-module github.com/akyoto/tagger
+module github.com/akyoto/mgit
 
 go 1.12
 

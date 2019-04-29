@@ -6,4 +6,8 @@ type Repository struct {
 	LastCommitHash   string
 	LastCommitTagged bool
 	LastTag          string
+	Command          struct {
+		Output string
+		Error  error
+	}
 }
