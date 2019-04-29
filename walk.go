@@ -11,6 +11,7 @@ import (
 	"sync"
 
 	"github.com/akyoto/color"
+	"github.com/akyoto/mgit/parse"
 )
 
 var (
@@ -79,12 +80,12 @@ func runCommandInDirectory(command string, repository *Repository) {
 	fmt.Printf("\033[2K\rRunning %s in %s", color.GreenString(command), color.GreenString(repository.Path))
 
 	var cmd *exec.Cmd
-	args := strings.Split(command, " ")
+	args := parse.Args(command)
 
-	if len(args) > 0 {
+	if len(args) > 1 {
 		cmd = exec.Command(args[0], args[1:]...)
 	} else {
-		cmd = exec.Command(command)
+		cmd = exec.Command(args[0])
 	}
 
 	cmd.Dir = repository.Path
