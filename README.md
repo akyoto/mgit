@@ -18,6 +18,12 @@ tagger
 
 Lets you view outdated or untagged git repositories by recursively searching everything in the working directory.
 
+```shell
+tagger -run "git pull"
+```
+
+The `-run` flag lets you specify a command to run in every git repository.
+
 ## FAQ
 
 ### Why is this needed?
