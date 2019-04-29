@@ -20,11 +20,13 @@ func init() {
 }
 
 func main() {
+	// Show help
 	if !tags && shellCommand == "" {
 		flag.Usage()
 		return
 	}
 
+	// Process repositories in parallel
 	err := filepath.Walk(root, walk)
 
 	if err != nil {
@@ -33,12 +35,18 @@ func main() {
 
 	repositoryWaitGroup.Wait()
 
+	// Shell command output
 	if shellCommand != "" {
 		fmt.Print("\033[2K\r")
 		showCommandOutput()
 	}
 
+	// Tags output
 	if tags {
+		if shellCommand != "" {
+			fmt.Println()
+		}
+
 		showTags()
 	}
 }
