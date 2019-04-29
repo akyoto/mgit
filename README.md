@@ -12,15 +12,17 @@ go get -u github.com/akyoto/mgit
 
 ### View tags
 
+![View git tags](docs/view-tags.png)
+
 ```shell
 mgit -tags
 ```
 
-![View git tags](docs/view-tags.png)
-
 Lets you view outdated or untagged git repositories by recursively searching everything in the working directory.
 
 ### Run a command
+
+![Run command](docs/run-command.png)
 
 ```shell
 mgit -run "go get -u"
@@ -29,8 +31,6 @@ mgit -run "go get -u"
 ```shell
 mgit -run "npm update"
 ```
-
-![Run command](docs/run-command.png)
 
 The `-run` flag lets you specify a command to run in every git repository. The command will be executed in parallel (one async routine per repository).
 
