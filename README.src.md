@@ -58,7 +58,8 @@ Use `-root` to use a different directory than the current working directory.
 
 ### Why is this needed?
 
-* Update dependencies of multiple repos at once
+* Increase semver tags of multiple repos
+* Update dependencies of multiple repos
 * Get information about multiple repos
 * See if your last commits are already tagged or not
 * Runs every command in parallel which makes it pretty fast
@@ -71,8 +72,4 @@ It means that the repository doesn't have any tags.
 
 It means that your last commit hasn't been tagged yet and users of your repository might still be on an outdated version.
 
-## Contact
-
-| [![Eduard Urbach on Twitter](https://gravatar.com/avatar/16ed4d41a5f244d1b10de1b791657989?s=70)](https://twitter.com/eduardurbach "Follow @eduardurbach on Twitter") |
-|---|
-| [Eduard Urbach](https://eduardurbach.com) |
+{go:footer}
