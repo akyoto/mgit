@@ -11,7 +11,7 @@ mgit (multi git) lets you manage multiple git repositories.
 ## Installation
 
 ```shell
-go get -u github.com/akyoto/mgit/...
+go get -u github.com/blitzprog/home/...
 ```
 
 ## Usage
@@ -98,13 +98,13 @@ Want to see [your own name here](https://www.patreon.com/eduardurbach)?
 |---|
 | [Eduard Urbach](https://eduardurbach.com) |
 
-[godoc-image]: https://godoc.org/github.com/akyoto/mgit?status.svg
-[godoc-url]: https://godoc.org/github.com/akyoto/mgit
-[report-image]: https://goreportcard.com/badge/github.com/akyoto/mgit
-[report-url]: https://goreportcard.com/report/github.com/akyoto/mgit
-[tests-image]: https://cloud.drone.io/api/badges/akyoto/mgit/status.svg
-[tests-url]: https://cloud.drone.io/akyoto/mgit
-[coverage-image]: https://codecov.io/gh/akyoto/mgit/graph/badge.svg
-[coverage-url]: https://codecov.io/gh/akyoto/mgit
+[godoc-image]: https://godoc.org/github.com/blitzprog/home?status.svg
+[godoc-url]: https://godoc.org/github.com/blitzprog/home
+[report-image]: https://goreportcard.com/badge/github.com/blitzprog/home
+[report-url]: https://goreportcard.com/report/github.com/blitzprog/home
+[tests-image]: https://cloud.drone.io/api/badges/blitzprog/home/status.svg
+[tests-url]: https://cloud.drone.io/blitzprog/home
+[coverage-image]: https://codecov.io/gh/blitzprog/home/graph/badge.svg
+[coverage-url]: https://codecov.io/gh/blitzprog/home
 [patreon-image]: https://img.shields.io/badge/patreon-donate-green.svg
 [patreon-url]: https://www.patreon.com/eduardurbach
