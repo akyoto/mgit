@@ -66,9 +66,9 @@ Use `-root` to use a different directory than the current working directory.
 
 ### Why is this needed?
 
-* Increase semver tags of multiple repos
-* Update dependencies of multiple repos
-* Get information about multiple repos
+* Increase semver tags of multiple repositories
+* Update dependencies of multiple repositories
+* Get information about multiple repositories
 * See if your last commits are already tagged or not
 * Runs every command in parallel which makes it pretty fast
 
