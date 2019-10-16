@@ -27,7 +27,7 @@ func walk(file string, info os.FileInfo, err error) error {
 	name := info.Name()
 
 	if name != "." && strings.HasPrefix(name, ".") {
-		if name == ".git" {
+		if name == ".git" && !isSkipped(file) {
 			repositoryPath := strings.TrimSuffix(file, ".git")
 			repositoryPath = path.Clean(repositoryPath)
 
@@ -170,4 +170,14 @@ func getLatestTag(dir string) string {
 
 	out = bytes.TrimSpace(out)
 	return string(out)
+}
+
+func isSkipped(repo string) bool {
+	repositoryPath := strings.TrimSuffix(repo, ".git")
+	repositoryPath = path.Clean(repositoryPath)
+	_, file := filepath.Split(repositoryPath)
+	if skipped[file] {
+		return true
+	}
+	return false
 }

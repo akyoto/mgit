@@ -54,6 +54,18 @@ mgit -run "npm update"
 
 The `-run` flag lets you specify a command to run in every git repository. The command will be executed in parallel (one async routine per repository).
 
+### Exclude a Repository
+
+```shell
+mgit -e "repo,repo2" -run "go get -u"
+```
+
+```shell
+mgit -e "repo,repo2" -tags
+```
+
+The `-e` flag lets you specify a repository (or comma separated list of repositories) that mgit will skip when tagging or running a command
+
 ### Setting working directory
 
 ```shell
