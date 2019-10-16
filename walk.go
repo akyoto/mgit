@@ -176,8 +176,6 @@ func isSkipped(repo string) bool {
 	repositoryPath := strings.TrimSuffix(repo, ".git")
 	repositoryPath = path.Clean(repositoryPath)
 	_, file := filepath.Split(repositoryPath)
-	if skipped[file] {
-		return true
-	}
-	return false
+
+	return skipped[file]
 }

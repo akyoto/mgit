@@ -64,7 +64,7 @@ mgit -e "repo,repo2" -run "go get -u"
 mgit -e "repo,repo2" -tags
 ```
 
-The `-e` flag lets you specify a repository (or comma separated list of repositories) that mgit will skip when tagging or running a command
+The `-e` flag lets you specify a repository (or comma separated list of repositories) that mgit will skip when tagging or running a command.
 
 ### Setting working directory
 
