@@ -26,33 +26,34 @@ func walk(file string, info os.FileInfo, err error) error {
 
 	name := info.Name()
 
-	if name != "." && strings.HasPrefix(name, ".") {
-		if name == ".git" && !isSkipped(file) {
-			repositoryPath := strings.TrimSuffix(file, ".git")
-			repositoryPath = path.Clean(repositoryPath)
+	if name == "." || !strings.HasPrefix(name, ".") {
+		return nil
+	}
 
-			if len(repositoryPath) > maxRepositoryLength {
-				maxRepositoryLength = len(repositoryPath)
-			}
-
-			repository := &Repository{
-				Path: repositoryPath,
-			}
-
-			repositoryWaitGroup.Add(1)
-
-			go func() {
-				processRepository(repository)
-				repositoryWaitGroup.Done()
-			}()
-
-			repositories = append(repositories, repository)
-		}
-
+	if name != ".git" || isExcluded(file) {
 		return filepath.SkipDir
 	}
 
-	return nil
+	repositoryPath := strings.TrimSuffix(file, ".git")
+	repositoryPath = path.Clean(repositoryPath)
+
+	if len(repositoryPath) > maxRepositoryLength {
+		maxRepositoryLength = len(repositoryPath)
+	}
+
+	repository := &Repository{
+		Path: repositoryPath,
+	}
+
+	repositoryWaitGroup.Add(1)
+
+	go func() {
+		processRepository(repository)
+		repositoryWaitGroup.Done()
+	}()
+
+	repositories = append(repositories, repository)
+	return filepath.SkipDir
 }
 
 func processRepository(repository *Repository) {
@@ -137,12 +138,7 @@ func isLastCommitTagged(dir string, commitHash string) bool {
 	cmd := exec.Command("git", "describe", "--contains", commitHash)
 	cmd.Dir = dir
 	_, err := cmd.Output()
-
-	if err != nil {
-		return false
-	}
-
-	return true
+	return err == nil
 }
 
 func getCommitHash(dir string) string {
@@ -172,10 +168,10 @@ func getLatestTag(dir string) string {
 	return string(out)
 }
 
-func isSkipped(repo string) bool {
-	repositoryPath := strings.TrimSuffix(repo, ".git")
+func isExcluded(repository string) bool {
+	repositoryPath := strings.TrimSuffix(repository, ".git")
 	repositoryPath = path.Clean(repositoryPath)
 	_, file := filepath.Split(repositoryPath)
 
-	return skipped[file]
+	return excluded[file]
 }

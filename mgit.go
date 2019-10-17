@@ -8,13 +8,13 @@ import (
 )
 
 var (
-	tags          bool
-	dry           bool
-	tag           string
-	root          string
-	shellCommand  string
-	excludedRepos string
-	skipped       map[string]bool
+	tags                 bool
+	dry                  bool
+	tag                  string
+	root                 string
+	shellCommand         string
+	excludedRepositories string
+	excluded             map[string]bool
 )
 
 func init() {
@@ -23,7 +23,7 @@ func init() {
 	flag.StringVar(&tag, "tag", "", "Specifies the tag increment for every outdated git repository (syntax: +0.0.1 to increase the SemVer minor)")
 	flag.StringVar(&root, "root", ".", "Specifies the directory to search for git repositories")
 	flag.StringVar(&shellCommand, "run", "", "Specifies a shell command to execute in every git repository")
-	flag.StringVar(&excludedRepos, "e", "", "Comma Separated List of Repos to Exclude")
+	flag.StringVar(&excludedRepositories, "exclude", "", "Comma separated list of repositories to exclude")
 	flag.Parse()
 }
 
@@ -49,11 +49,12 @@ func main() {
 		return
 	}
 
-	if excludedRepos != "" {
-		skipped = make(map[string]bool)
-		excluded := strings.Split(excludedRepos, ",")
-		for _, repo := range excluded {
-			skipped[repo] = true
+	if excludedRepositories != "" {
+		excludedList := strings.Split(excludedRepositories, ",")
+		excluded = map[string]bool{}
+
+		for _, repo := range excludedList {
+			excluded[repo] = true
 		}
 	}
 
