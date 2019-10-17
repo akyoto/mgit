@@ -8,11 +8,13 @@ import (
 )
 
 var (
-	tags         bool
-	dry          bool
-	tag          string
-	root         string
-	shellCommand string
+	tags          bool
+	dry           bool
+	tag           string
+	root          string
+	shellCommand  string
+	excludedRepos string
+	skipped       map[string]bool
 )
 
 func init() {
@@ -21,6 +23,7 @@ func init() {
 	flag.StringVar(&tag, "tag", "", "Specifies the tag increment for every outdated git repository (syntax: +0.0.1 to increase the SemVer minor)")
 	flag.StringVar(&root, "root", ".", "Specifies the directory to search for git repositories")
 	flag.StringVar(&shellCommand, "run", "", "Specifies a shell command to execute in every git repository")
+	flag.StringVar(&excludedRepos, "e", "", "Comma Separated List of Repos to Exclude")
 	flag.Parse()
 }
 
@@ -44,6 +47,14 @@ func main() {
 	if dry && tag == "" {
 		fmt.Println("Dry run is only possible when -tag option is specified")
 		return
+	}
+
+	if excludedRepos != "" {
+		skipped = make(map[string]bool)
+		excluded := strings.Split(excludedRepos, ",")
+		for _, repo := range excluded {
+			skipped[repo] = true
+		}
 	}
 
 	// Process repositories in parallel
